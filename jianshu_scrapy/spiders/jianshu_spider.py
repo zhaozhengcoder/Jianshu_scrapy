@@ -9,11 +9,10 @@ class jianshuSpider(scrapy.Spider):
     allowed_domains = ["jianshu.com"]
 
     base_headers = {'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4',
-                    'Host': 'www.jianshu.com',
                     'Accept-Encoding': 'gzip, deflate, sdch',
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'text/html, */*; q=0.01',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
                     'Connection': 'keep-alive',
                     'Referer': 'http://www.jianshu.com'}
 
@@ -52,11 +51,11 @@ class jianshuSpider(scrapy.Spider):
         info_item['nickname']=nickname
         info_item['head_pic']=head_pic
         info_item['gender']=gender
-        info_item['following_num']=following_num
-        info_item['follower_num']=follower_num
-        info_item['articles_num']=articles_num
-        info_item['words_num']=words_num
-        info_item['beliked_num']=beliked_num
+        info_item['following_num']=int(following_num)
+        info_item['follower_num']=int(follower_num)
+        info_item['articles_num']=int(articles_num)
+        info_item['words_num']=int(words_num)
+        info_item['beliked_num']=int(beliked_num)
         yield info_item
         yield Request( "http://www.jianshu.com/users/{uid}/followers".format(uid=uid),headers=self.base_headers,callback=self.parser_followers)
         yield Request( "http://www.jianshu.com/users/{uid}/following?page=1".format(uid=uid),headers=self.base_headers,callback=self.parser_followering)

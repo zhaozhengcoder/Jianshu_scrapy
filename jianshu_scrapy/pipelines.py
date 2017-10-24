@@ -36,7 +36,7 @@ class JianshuScrapyPipeline(object):
     
     def item_a_insert(self,conn,item):
         try:
-            conn.execute('insert into jianshu_user(uid,nickname,head_pic,gender,following_num,follower_num,articles_num,words_num,beliked_num) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)', (item['uid'],item['nickname'],item['head_pic'],item['gender'],item['following_num'],item['follower_num'],item['articles_num'],item['words_num'],item['beliked_num']))
+            conn.execute('insert into jianshu_user(uid,nickname,head_pic,gender,following_num,follower_num,articles_num,words_num,beliked_num) values(%s,%s,%s,%s,%d,%d,%d,%d,%d)', (item['uid'],item['nickname'],item['head_pic'],item['gender'],item['following_num'],item['follower_num'],item['articles_num'],item['words_num'],item['beliked_num']))
         except Exception,e:
             print e
 

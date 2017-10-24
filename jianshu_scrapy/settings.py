@@ -18,7 +18,7 @@ NEWSPIDER_MODULE = 'jianshu_scrapy.spiders'
 
 #Mysql数据库的配置信息
 MYSQL_HOST = '127.0.0.1'
-MYSQL_DBNAME = 'test3'         #数据库名字，请修改
+MYSQL_DBNAME = 'jianshu_scrapy'         #数据库名字，请修改
 MYSQL_USER = 'root'             #数据库账号，请修改
 MYSQL_PASSWD = 'root'         #数据库密码，请修改
 
