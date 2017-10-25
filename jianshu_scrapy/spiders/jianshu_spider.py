@@ -14,10 +14,10 @@ class jianshuSpider(scrapy.Spider):
                     'Accept': 'text/html, */*; q=0.01',
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
                     'Connection': 'keep-alive',
-                    'Referer': 'http://www.jianshu.com'}
+                    'Referer': 'http://www.baidu.com'}
 
     def start_requests(self):
-        yield Request("http://www.jianshu.com/u/3fdcc04b7bd7",headers=self.base_headers)
+        
         yield Request("http://www.jianshu.com/u/67b99e049743",headers=self.base_headers)
         yield Request("http://www.jianshu.com/u/67b99e049743",headers=self.base_headers)
         yield Request("http://www.jianshu.com/u/9a5983ec2ea8",headers=self.base_headers)
@@ -26,7 +26,7 @@ class jianshuSpider(scrapy.Spider):
         yield Request("http://www.jianshu.com/u/3e2c151e2c9d",headers=self.base_headers)
         yield Request("http://www.jianshu.com/u/d90828191ace",headers=self.base_headers)
         yield Request("http://www.jianshu.com/u/3e2c151e2c9d",headers=self.base_headers)
-
+        
         
 
     def parse(self, response):
@@ -36,7 +36,6 @@ class jianshuSpider(scrapy.Spider):
             f.write(response.body)
         """
         info_item=JianshuScrapyItem()
-        #use method extract() , the type of result is list
         uid=response.xpath('/html/body/div[1]/div/div[1]/div[1]/div[2]/a/@href').extract_first().split('/')[-1]
         nickname=response.xpath('/html/body/div[1]/div/div[1]/div[1]/div[2]/a/text()').extract_first()
         head_pic=response.xpath('/html/body/div[1]/div/div[1]/div[1]/a[1]/img/@src').extract_first()
@@ -59,6 +58,7 @@ class jianshuSpider(scrapy.Spider):
         yield info_item
         yield Request( "http://www.jianshu.com/users/{uid}/followers".format(uid=uid),headers=self.base_headers,callback=self.parser_followers)
         yield Request( "http://www.jianshu.com/users/{uid}/following?page=1".format(uid=uid),headers=self.base_headers,callback=self.parser_followering)
+        
 
     def parser_followering(self,response):
         """

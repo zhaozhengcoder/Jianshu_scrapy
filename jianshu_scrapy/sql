@@ -1,4 +1,5 @@
 
+#创建数据库的sql语句
 create table jianshu_user(
    uid varchar(100) not null,
    nickname VARCHAR(100),

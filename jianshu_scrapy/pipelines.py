@@ -16,7 +16,7 @@ class JianshuScrapyPipeline(object):
     def __init__(self):
         dbargs = dict (
             host ='localhost',
-            db='test3',
+            db='jianshu_scrapy',
             user='root',
             passwd='root',
             charset='utf8',
@@ -36,12 +36,13 @@ class JianshuScrapyPipeline(object):
     
     def item_a_insert(self,conn,item):
         try:
-            conn.execute('insert into jianshu_user(uid,nickname,head_pic,gender,following_num,follower_num,articles_num,words_num,beliked_num) values(%s,%s,%s,%s,%d,%d,%d,%d,%d)', (item['uid'],item['nickname'],item['head_pic'],item['gender'],item['following_num'],item['follower_num'],item['articles_num'],item['words_num'],item['beliked_num']))
+            sql="insert into jianshu_user(uid,nickname,head_pic,gender,following_num,follower_num,articles_num,words_num,beliked_num) values('%s','%s','%s','%s',%d,%d,%d,%d,%d) ;"%(item['uid'],item['nickname'],item['head_pic'],item['gender'],int(item['following_num']),int(item['follower_num']),int(item['articles_num']),int(item['words_num']),int(item['beliked_num']))
+            conn.execute(sql)
         except Exception,e:
             print e
 
     def item_b_insert(self,conn,item):
         try:
-            conn.execute('insert into jianshu_user_relation(uid,follower) values (%s,%s)',(item['uid'],item['follower'] ))
+            conn.execute('insert into jianshu_user_relation(uid,follower_uid) values (%s,%s)',(item['uid'],item['follower'] ))
 	except Exception,e:
             print e
