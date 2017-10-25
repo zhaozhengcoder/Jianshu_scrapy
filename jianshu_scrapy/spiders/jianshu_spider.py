@@ -117,7 +117,10 @@ class jianshuSpider(scrapy.Spider):
         """
         for i in range(1,10):
             followers_path='/html/body/div/div[1]/div[1]/div[2]/ul/li[{num}]/div[1]/a/@href'.format(num=i)
-            followers_uid=response.xpath(followers_path).extract_first().split('/')[-1]
-            #print "http://www.jianshu.com/u/{uid}".format(uid=followers_uid)
-            yield Request( "http://www.jianshu.com/u/{uid}".format(uid=followers_uid),headers=self.base_headers,callback=self.parse)
+            result=response.xpath(followers_path).extract_first().split('/')
+            #if result is not empty
+            if len(result):
+                followers_uid=result[-1]
+                #print "http://www.jianshu.com/u/{uid}".format(uid=followers_uid)
+                yield Request( "http://www.jianshu.com/u/{uid}".format(uid=followers_uid),headers=self.base_headers,callback=self.parse)
 
