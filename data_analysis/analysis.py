@@ -34,18 +34,42 @@ def top_articles_per_beliked(top_num=20):
 
 #用户按照粉丝比例的分布
 def follower_distribution(follower_num=1000):
-    sql="  select count(*) from jianshu_user where follower_num< {follower_num} ;".format(follower_num=follower_num)
+    sql="  select count(*) from jianshu_user where follower_num > {follower_num} ;".format(follower_num=follower_num)
     distribution=DB.db_select(sql)
     print (distribution)
     print (distribution[0][0])
+    return distribution[0][0]
 
 def analysis_distribution():
-    pass
+    sql="select count(*) from jianshu_user ;"
+    total_user_count=DB.db_select(sql)[0][0]
+    dis_dict={}
+    follower_num=1000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    follower_num=2000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    follower_num=4000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    follower_num=5000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    follower_num=10000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    follower_num=20000
+    dis_dict[follower_num]=follower_distribution(follower_num)
+    for key in dis_dict:
+        print (key , "  ",dis_dict[key])
 
+
+#to-do  timeline
+
+
+#to-do 用户1 到用户2 的距离
 
 
 if __name__=='__main__':
     #top_author()
     #top_articles_num()
     #top_articles_per_beliked()
-    follower_distribution()
+    #follower_distribution()
+    analysis_distribution()
+
