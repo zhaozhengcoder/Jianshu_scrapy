@@ -17,17 +17,13 @@ class jianshuSpider(scrapy.Spider):
                     'Referer': 'http://www.baidu.com'}
 
     def start_requests(self):
-        
-        yield Request("http://www.jianshu.com/u/67b99e049743",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/67b99e049743",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/9a5983ec2ea8",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/04106315c531",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/72f7e8a56495",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/3e2c151e2c9d",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/d90828191ace",headers=self.base_headers)
-        yield Request("http://www.jianshu.com/u/3e2c151e2c9d",headers=self.base_headers)
-        
-        
+        yield Request("http://www.jianshu.com/u/12532d36e4da",headers=self.base_headers)
+        yield Request("http://www.jianshu.com/u/9b20c7d63b77",headers=self.base_headers)
+        yield Request("http://www.jianshu.com/u/94bbc48171c7",headers=self.base_headers)
+        yield Request("http://www.jianshu.com/u/181e7b1b1423",headers=self.base_headers)
+        yield Request("http://www.jianshu.com/u/8faa58cbfde1",headers=self.base_headers)
+        yield Request("http://www.jianshu.com/u/8530ab416e50",headers=self.base_headers)
+                
 
     def parse(self, response):
         """

@@ -15,6 +15,9 @@ def top_author(top_num=50):
     merge_list.extend(beliked_list)
     merge_set=set(merge_list)
     new_merge_list=list(merge_set)
+    #show nickanme
+    for item in new_merge_list:
+        print (item)
     Show.show_top_author(new_merge_list)
 
 
@@ -22,7 +25,9 @@ def top_author(top_num=50):
 def top_articles_num(top_num=20):
     sql='select uid,nickname,articles_num from jianshu_user order by articles_num desc  limit {top_num};'.format(top_num=top_num)
     top_articles=DB.db_select(sql)
-    print (top_articles)
+    #print (top_articles)
+    for item in top_articles:
+        print (item[1],end=',')
 
 
 
@@ -30,44 +35,32 @@ def top_articles_num(top_num=20):
 def top_articles_per_beliked(top_num=20):
     sql=" select uid,nickname, beliked_num, words_num ,beliked_num/words_num as new1 from jianshu_user order by new1 desc limit {top_num};".format(top_num=top_num)
     articles_per_beliked=DB.db_select(sql)
-    print (articles_per_beliked)
+    #print (articles_per_beliked)
+    for item in articles_per_beliked:
+        print (item[1],end=',')
 
 #用户按照粉丝比例的分布
-def follower_distribution(follower_num=1000):
-    sql="  select count(*) from jianshu_user where follower_num > {follower_num} ;".format(follower_num=follower_num)
+def follower_distribution(item_list):
+    sql="select count(*) from jianshu_user where follower_num > {follower_num1} and follower_num < {follower_num2};".format(follower_num1=item_list[0],follower_num2=item_list[1])
+    print (sql)
     distribution=DB.db_select(sql)
-    print (distribution)
+    #print (distribution)
     print (distribution[0][0])
     return distribution[0][0]
 
+
 def analysis_distribution():
-    sql="select count(*) from jianshu_user ;"
-    total_user_count=DB.db_select(sql)[0][0]
-    dis_dict={}
-    follower_num=1000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    follower_num=2000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    follower_num=4000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    follower_num=5000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    follower_num=10000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    follower_num=20000
-    dis_dict[follower_num]=follower_distribution(follower_num)
-    for key in dis_dict:
-        print (key , "  ",dis_dict[key])
+    range_num=[[0,10],[10,20],[20,30],[30,40],[40,50],[50,100],[100,200],[200,500],[500,1000],[1000,2000],[2000,5000],[5000,10000],[10000,20000]]
+    result=[]
+    for item in range_num:
+        result.append(follower_distribution(item))
+    print (result)
 
 
-#to-do  timeline
-
-
-#to-do 用户1 到用户2 的距离
 
 
 if __name__=='__main__':
-    #top_author()
+    #top_author(20)
     #top_articles_num()
     #top_articles_per_beliked()
     #follower_distribution()
