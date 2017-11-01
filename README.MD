@@ -11,7 +11,7 @@
 
     1.1 jianshu 的很多数据使用的是js在动态加载，使用scrapy爬去动态的数据
 
-    1.2 特意为爬虫写了一个ip的代理池，这样可以绕过ip的限制（https://github.com/zhaozhengcoder/Ip_pool）
+    1.2 特意为爬虫写了一个ip的代理池，这样可以绕过ip的限制（https://github.com/zhaozhengcoder/Ip_pool)
 2. 数据库用的是关系型数据库mysql （目前爬去了8w条用户信息，和25w的用户关系）
 3. 下一步讲关系型数据库的数据导入图数据库NEO4J，这样进行关系网络的分析的时候，会方便一点
 

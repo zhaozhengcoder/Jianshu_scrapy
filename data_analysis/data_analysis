@@ -1,2 +1,0 @@
-select uid,nickname,follower_num from jianshu_user order by follower_num desc  limit 5;
-

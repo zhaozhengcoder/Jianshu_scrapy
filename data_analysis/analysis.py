@@ -39,7 +39,7 @@ def top_articles_per_beliked(top_num=20):
     for item in articles_per_beliked:
         print (item[1],end=',')
 
-#用户按照粉丝比例的分布
+
 def follower_distribution(item_list):
     sql="select count(*) from jianshu_user where follower_num > {follower_num1} and follower_num < {follower_num2};".format(follower_num1=item_list[0],follower_num2=item_list[1])
     print (sql)
@@ -48,8 +48,8 @@ def follower_distribution(item_list):
     print (distribution[0][0])
     return distribution[0][0]
 
-
-def analysis_distribution():
+#用户按照粉丝比例的分布
+def analysis_following_distribution():
     range_num=[[0,10],[10,20],[20,30],[30,40],[40,50],[50,100],[100,200],[200,500],[500,1000],[1000,2000],[2000,5000],[5000,10000],[10000,20000]]
     result=[]
     for item in range_num:
@@ -57,12 +57,14 @@ def analysis_distribution():
     print (result)
 
 
+def analysis_beliked_distribution():
+    pass
+
 
 
 if __name__=='__main__':
     #top_author(20)
     #top_articles_num()
     #top_articles_per_beliked()
-    #follower_distribution()
-    analysis_distribution()
+    analysis_following_distribution()
 
