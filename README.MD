@@ -36,3 +36,24 @@ Platform: Linux-4.4.0-97-generic-x86_64-with-Ubuntu-16.04-xenial
 毕竟，人生苦短，我还要和女朋友一起玩耍～ 
 逃～
 ```
+
+
+## 后续的思考
+爬虫爬下来的数据存在mysql里面，主要的数据是两大块，一是：作者的信息，二是：作者之间的following关系。这两块信息存储的时候，设计了两张表：
+
+第一张表存储作者的信息
+```
+（uid ，姓名，性别，文章数，被喜欢的次数，关注的用户数，粉丝数，字数，头像的url）
+```
+第二张表存储作者的follow关系
+```
+（uid，following_uid） #这个表示uid对应的用户 的一个粉丝是following——uid对应的用户
+```
+
+这样看着还行，但是有一个问题是，割裂了用户信息和用户粉丝信息，把他们分成了两张表。如何涉及到这样的查询的时候，就必然需要大量的join操作。
+
+在github上面看见这位大哥的分析，很好 ：https://github.com/StevenSLXie/Tutorials-for-Web-Developers/blob/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md
+
+简单的说，使用monogdb 可以解决这种文件，它可以把所有的信息堆在一张长得很像json的表上。刚才说的mysql上面存在的问题，就轻松解决！！！！　
+
+so,　最近估计会重构一个mongodb的版本!!!
