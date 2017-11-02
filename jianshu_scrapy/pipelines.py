@@ -44,5 +44,5 @@ class JianshuScrapyPipeline(object):
     def item_b_insert(self,conn,item):
         try:
             conn.execute('insert into jianshu_user_relation(uid,follower_uid) values (%s,%s)',(item['uid'],item['follower'] ))
-	    except Exception,e:
+	except Exception,e:
             print e
