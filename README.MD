@@ -58,5 +58,11 @@ Platform: Linux-4.4.0-97-generic-x86_64-with-Ubuntu-16.04-xenial
 
 so,　最近估计会重构一个mongodb的版本!!!
 
-update :
+### update :
 找了一个不忙的半天，学习了一些mongodb的语法，更新了一个使用mongodb的版本
+
+### 2017.11.02  update :
+1. 发现了一个问题，就是自己没有写去重的policy，下一步可能会增加去重的策略，提高爬虫的效率
+
+2. 想学习一个分布式的爬虫ｏｒ多线程爬虫　，提高一下效率
+
