@@ -57,3 +57,6 @@ Platform: Linux-4.4.0-97-generic-x86_64-with-Ubuntu-16.04-xenial
 简单的说，使用monogdb 可以解决这种文件，它可以把所有的信息堆在一张长得很像json的表上。刚才说的mysql上面存在的问题，就轻松解决！！！！　
 
 so,　最近估计会重构一个mongodb的版本!!!
+
+update :
+找了一个不忙的半天，学习了一些mongodb的语法，更新了一个使用mongodb的版本
