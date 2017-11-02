@@ -6,12 +6,43 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from twisted.enterprise import adbapi
-import MySQLdb
-import MySQLdb.cursors
+#　换成mongodb 之后　不需要mysql的东西了
+#import MySQLdb
+#import MySQLdb.cursors
+import pymongo
+from pymongo import MongoClient
+
 from scrapy.crawler import Settings as settings
 from items import JianshuScrapyItem
-from items import relationItem
+from items import relationItem 
 
+class JianshuScrapyPipeline(object):
+    def __init__(self):
+        self.col_user=MongoClient('localhost',27017).jianshu_scrapy.jianshu_user
+
+    def process_item(self, item, spider):
+        if isinstance(item,JianshuScrapyItem):
+            doc={
+                "uid" : item['uid'],
+                "nickname" : item['nickname'],
+                "head_pic" : item['head_pic'],
+                "gender" : "todo",
+                "following_num" : item['following_num'],
+                "follower_num" : item['follower_num'],
+                "follower_uid" : [],
+                "articles_num" : item['articles_num'],
+                "words_num" : item['words_num'],
+                "beliked_num" : item['beliked_num'],
+            }
+            self.col_user.insert(doc)
+            return item
+        if isinstance(item,relationItem):
+            post1={"uid" : item['uid']}
+            post2={'$addToSet':{'follower_uid':item['follower']}}
+            self.update(post1,post2)
+            return item
+
+"""
 class JianshuScrapyPipeline(object):
     def __init__(self):
         dbargs = dict (
@@ -26,12 +57,12 @@ class JianshuScrapyPipeline(object):
         self.dbpool = adbapi.ConnectionPool('MySQLdb',**dbargs)
 
     def process_item(self, item, spider):
-        if isinstance(item,JianshuScrapyItem):
-            res = self.dbpool.runInteraction(self.item_a_insert,item)
-            return item
-        if isinstance(item,relationItem):
-            res = self.dbpool.runInteraction(self.item_b_insert,item)
-            return item
+	if isinstance(item,JianshuScrapyItem):
+		res = self.dbpool.runInteraction(self.item_a_insert,item)
+		return item
+	if isinstance(item,relationItem):
+		res = self.dbpool.runInteraction(self.item_b_insert,item)
+		return item
 	
     
     def item_a_insert(self,conn,item):
@@ -44,5 +75,6 @@ class JianshuScrapyPipeline(object):
     def item_b_insert(self,conn,item):
         try:
             conn.execute('insert into jianshu_user_relation(uid,follower_uid) values (%s,%s)',(item['uid'],item['follower'] ))
-	    except Exception,e:
+	except Exception,e:
             print e
+"""
