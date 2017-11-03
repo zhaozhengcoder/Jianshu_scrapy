@@ -66,3 +66,19 @@ so,　最近估计会重构一个mongodb的版本!!!
 
 2. 想学习一个分布式的爬虫ｏｒ多线程爬虫　，提高一下效率
 
+
+### update :
+关于实现重复爬取页面去重的策略的想法，
+
+１．使用set, 将爬过的url存放在set里面，对于一个newurl，进行一个判断　
+```
+    if newurl in urlset:
+        不爬取这个url
+    else 
+        爬取这个url
+```
+２．使用bloomfilter
+```
+#自己实现了一个布隆过滤器，在可以在目录里面看见这个文件
+myBloomFilter.py
+```
