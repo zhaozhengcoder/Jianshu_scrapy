@@ -9,7 +9,7 @@
 
 
 ### 分析
-* 为了加速爬虫，使用scrapy框架，这个框架封装了多进程异步爬取，这样可以提高爬取的效率。
+* 为了加速爬取，使用scrapy框架，scrapy封装了多进程异步爬取的框架，这样可以提高爬取的效率。
 
 * 页面的很多数据使用的是js在动态加载，使用postman和chrome的浏览器插件可以抓包分析出这样数据是如何得到的，然后进行相应的爬取
 
@@ -49,42 +49,48 @@ Platform: Linux-4.4.0-97-generic-x86_64-with-Ubuntu-16.04-xenial
 
 第一张表存储作者的信息
 ```
-（uid ，姓名，性别，文章数，被喜欢的次数，关注的用户数，粉丝数，字数，头像的url）
+ ( uid ，姓名，性别，文章数，被喜欢的次数，关注的用户数，粉丝数，字数，头像的url )
 ```
 第二张表存储作者的follow关系
 ```
-（uid，following_uid） #这个表示uid对应的用户 的一个粉丝是following——uid对应的用户
+(uid，following_uid ) #这个表示uid对应的用户 的一个粉丝是following——uid对应的用户
 ```
 
 这样看着还行，但是有一个问题是，割裂了用户信息和用户粉丝信息，把他们分成了两张表。如何涉及到这样的查询的时候，就必然需要大量的join操作。
 
-在github上面看见这位大哥的分析，很好 ：https://github.com/StevenSLXie/Tutorials-for-Web-Developers/blob/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md
+在github上面看见这位大哥的分析的很好，详情可以看他的 [Blog](https://github.com/StevenSLXie/Tutorials-for-Web-Developers/blob/master/MongoDB%20%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.md )
 
-简单的说，使用monogdb 可以解决这种文件，它可以把所有的信息堆在一张长得很像json的表上。刚才说的mysql上面存在的问题，就轻松解决！！！！　
+简单的说，关系型数据库对这种更像是“json”格式的数据，在增删改查上面会比较吃力和麻烦一点。
 
-so,　最近估计会重构一个mongodb的版本!!!
+但是使用monogdb可以解决这种问题，因为mongodb放宽了对数据格式的要求，非常适合存储这样的数据，它可以把所有的信息堆在一张长得很像json的表上。刚才说的mysql上面存在的问题，就轻松解决！
 
-### update :
-找了一个不忙的半天，学习了一些mongodb的语法，更新了一个使用mongodb的版本
-
-### 2017.11.02  update :
-1. 发现了一个问题，就是自己没有写去重的policy，下一步可能会增加去重的策略，提高爬虫的效率
-
-2. 想学习一个分布式的爬虫ｏｒ多线程爬虫　，提高一下效率
+so,　最近估计会重构一个mongodb的版本!
 
 
-### update :
-关于实现重复爬取页面去重的策略的想法，
+***
 
-１．使用set, 将爬过的url存放在set里面，对于一个newurl，进行一个判断　
-```
-    if newurl in urlset:
-        不爬取这个url
-    else 
-        爬取这个url
-```
-２．使用bloomfilter
-```
-#自己实现了一个布隆过滤器，在可以在目录里面看见这个文件
-myBloomFilter.py
-```
+
+* update :
+
+    找了一个不忙的半天，学习了一些mongodb的语法，更新了一个使用mongodb的版本
+
+* 2017.11.02  update :
+
+    发现了一个问题，就是自己没有写去重的policy，下一步可能会增加去重的策略，提高爬虫的效率
+
+
+* update :
+    关于实现重复爬取页面去重的策略的想法
+
+    1. 使用set, 将爬过的url存放在set里面，对于一个newurl，进行一个判断　
+    ```
+        if newurl in urlset:
+            不爬取这个url
+        else 
+            爬取这个url
+    ```
+    2. 使用bloomfilter
+    ```
+    #自己实现了一个布隆过滤器，在可以在目录里面看见这个文件
+    myBloomFilter.py
+    ```
