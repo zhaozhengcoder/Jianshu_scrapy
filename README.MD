@@ -73,6 +73,8 @@ so,　最近估计会重构一个mongodb的版本!
 * update :
 
     找了一个不忙的半天，学习了一些mongodb的语法，更新了一个使用mongodb的版本
+    https://github.com/zhaozhengcoder/Jianshu_scrapy/tree/master/jianshu_scrapy_mongo
+    
 
 * 2017.11.02  update :
 
