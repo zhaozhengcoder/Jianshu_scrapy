@@ -17,11 +17,11 @@
 
 * 使用xpath对爬取到的html文件进行解析
 
-* 使用布隆过滤器对爬取的url去重，避免一个页面的重复爬取
-( https://github.com/zhaozhengcoder/Jianshu_scrapy/blob/master/myBloomFilter.py )
+* 使用布隆过滤器对爬取的url去重，避免一个页面的重复爬取(https://github.com/zhaozhengcoder/Jianshu_scrapy/blob/master/myBloomFilter.py )
 
 * 数据库用的是关系型数据库mysql （目前爬去了8w条用户信息，和25w的用户关系）。下一步讲关系型数据库的数据导入图数据库NEO4J，这样进行关系网络的分析的时候，会方便一点
 
+* 试着对拿到的数据 做一点点分析，整理在我的blog上面(https://www.jianshu.com/p/7c6c38bba5af)
 
 ### To-do：
 
@@ -94,3 +94,4 @@ so,　最近估计会重构一个mongodb的版本!
     #自己实现了一个布隆过滤器，在可以在目录里面看见这个文件
     myBloomFilter.py
     ```
+
